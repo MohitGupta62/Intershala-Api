@@ -4,6 +4,27 @@ const mongoose = require("mongoose");
 const bcrypt  = require("bcrypt")
 const jwt = require("jsonwebtoken");
 const studentModel = new mongoose.Schema({
+    firstname:{
+        type: String,
+        required: [true, "First Name is required"],
+        minLength: [4, "First name should be atleast 4 character long"]
+    },
+    lastname: {
+        type: String,
+        required: [true, "Last Name is required"],
+        minLength: [4, "Last name should be atleast 4 character long"]
+    },
+    contact: {
+        type: String,
+        required: [true, "Contact is required"],
+        maxLength: [10, "Contact must not exceed 10 character long"],
+        minLength: [10, "Contact should be atleast 10 character long"]
+    },
+    city: {
+        type: String,
+        required: [true, " City is required"],
+    },
+    gender: {type: String, enum: ["Male", "Female", "Others"]},
     email: {
         type: String,
         unique: true,
@@ -21,11 +42,18 @@ const studentModel = new mongoose.Schema({
         maxLength: [15, "Password should not exceed more than 15 characters"],
         minLength: [6, "Password should have be atleast 6 characters"],
         //match: []
+    }, 
     resetPasswordToken: {
         type: String,
-        default: "0"
+        default: "0",
     },
-    }, 
+    avatar: {
+        type: Object,
+        default: {
+            fileId: "",
+            url: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"
+        }
+    },
 },{timestamps: true});
 
 

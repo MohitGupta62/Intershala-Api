@@ -26,6 +26,9 @@ app.use(session({
 }))
 app.use(cookieParser());
 
+//express file-upload
+const fileupload = require("express-fileupload");
+app.use(fileupload()); //ye code upar wala fileupload ko use karne ke liye likhte hai
 
 //routes
 app.use("/", require("./routes/indexRoutes"));

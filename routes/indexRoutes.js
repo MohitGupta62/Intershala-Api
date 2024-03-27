@@ -7,7 +7,9 @@ const {
     currentUser, 
     studentsendmail,
     studentforgetlink,
-    studentresetpassword, 
+    studentresetpassword,
+    studentupdate,
+    studentavatar, 
 } = require("../controllers/indexController");
 
 const { isAuthenticated } = require("../middlewares/authenticate");
@@ -31,10 +33,16 @@ router.get("/student/signout",isAuthenticated, studentsignout);
 //Post /student/send-mail      //forgot password through email
 router.post("/student/send-mail", studentsendmail);
 
-//Get /student/forget-link:studentid      //Reset password ka route
+//Get /student/forget-link/:studentid      //Reset password ka route
 router.get("/student/forget-link/:id", studentforgetlink );
 
-//Post /student/reset-password:studentid      //Reset password ka route
+//Post /student/reset-password/:studentid      //Reset password ka route
 router.post("/student/reset-password/:id", isAuthenticated, studentresetpassword );
+
+//Post /student/update/:studentid  
+router.post("/student/update/:id", isAuthenticated, studentupdate );
+
+//Post /student/avatar/:studentid   //avatar route image ko upload krne ke liye bana hai 
+router.post("/student/avatar/:id", isAuthenticated, studentavatar);
 
 module.exports = router;
