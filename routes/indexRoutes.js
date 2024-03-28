@@ -1,4 +1,5 @@
 const express = require("express");
+const router = express();
 const {
     homepage, 
     studentsignup, 
@@ -13,7 +14,6 @@ const {
 } = require("../controllers/indexController");
 
 const { isAuthenticated } = require("../middlewares/authenticate");
-const router = express();
 
 //Get /
 router.get("/", isAuthenticated, homepage)

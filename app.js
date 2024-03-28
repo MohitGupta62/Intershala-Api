@@ -31,7 +31,8 @@ const fileupload = require("express-fileupload");
 app.use(fileupload()); //ye code upar wala fileupload ko use karne ke liye likhte hai
 
 //routes
-app.use("/", require("./routes/indexRoutes"));
+app.use("/user", require("./routes/indexRoutes"));
+app.use("/resume", require("./routes/resumeRoutes"));
 
 //error handling
 const ErrorHandler = require("./utils/ErrorHandler");

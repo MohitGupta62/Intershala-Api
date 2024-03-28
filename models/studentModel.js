@@ -54,6 +54,16 @@ const studentModel = new mongoose.Schema({
             url: "https://uxwing.com/wp-content/themes/uxwing/download/peoples-avatars/default-profile-picture-grey-male-icon.png"
         }
     },
+    resume: {
+        education: [],
+        jobs: [],
+        internships: [],
+        responsibilities: [],
+        courses: [],
+        projects: [],
+        skills: [],
+        accomplishments: [],
+    },
 },{timestamps: true});
 
 

@@ -1,4 +1,3 @@
-const { userInfo } = require("os");
 const { catchAsyncErrors } = require("../middlewares/catchAsyncError");
 const Student = require("../models/studentModel");
 const ErrorHandler = require("../utils/ErrorHandler");
