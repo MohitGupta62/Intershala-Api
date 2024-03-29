@@ -22,6 +22,9 @@ const { resume,
         addskills,
         editskills,
         deleteskills,
+        addacco,
+        editacco,
+        deleteacco,
 } = require("../controllers/resumeController");
 const { isAuthenticated } = require("../middlewares/authenticate");
 
