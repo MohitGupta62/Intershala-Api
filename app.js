@@ -33,6 +33,7 @@ app.use(fileupload()); //ye code upar wala fileupload ko use karne ke liye likht
 //routes
 app.use("/user", require("./routes/indexRoutes"));
 app.use("/resume", require("./routes/resumeRoutes"));
+app.use("/employe", require("./routes/employeRoutes"));
 
 //error handling
 const ErrorHandler = require("./utils/ErrorHandler");
