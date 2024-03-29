@@ -10,6 +10,13 @@ const {
     employeforgetlink,
     employeresetpassword,
     employeupdate,
+    employeavatar,
+    createinternship,
+    readinternship,
+    readsingleinternship,
+    createjob,
+    readjob,
+    readsinglejob,
 } = require("../controllers/employeController");
 
 const { isAuthenticated } = require("../middlewares/authenticate");
@@ -42,6 +49,31 @@ router.post("/reset-password/:id", isAuthenticated, employeresetpassword);
 router.post("/update/:id", isAuthenticated, employeupdate);
 
 //Post /employe/avatar/:employeid   //avatar route image ko upload krne ke liye bana hai 
-router.post("/avatar/:id", isAuthenticated, );
+router.post("/avatar/:id", isAuthenticated, employeavatar);
+
+
+
+//--------------------------- Internship -------------------------
+
+//Post /employe/internship/create  //Internship create hoga
+router.post("/internship/create", isAuthenticated, createinternship);
+
+//Post /employe/internship/read  //Internship ko read kargea
+router.post("/internship/read", isAuthenticated, readinternship);
+
+//Post /employe/internship/read/intershipid  //Single Internship ko read kargea
+router.post("/internship/read/:id", isAuthenticated, readsingleinternship);
+
+
+//--------------------------- Jobs -------------------------
+
+//Post /employe/job/create  //job create hoga
+router.post("/job/create", isAuthenticated, createjob );
+
+//Post /employe/job/read  //job ko read kargea
+router.post("/job/read", isAuthenticated, readjob);
+
+//Post /employe/job/read/jobid  //Single job ko read kargea
+router.post("/job/read/:id", isAuthenticated, readsinglejob);
 
 module.exports = router;

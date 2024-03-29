@@ -59,7 +59,7 @@ const employeModel = new mongoose.Schema({
     }],
     jobs: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'jobs'
+        ref: 'job'
     }]
 },{timestamps: true});
 

@@ -1,5 +1,7 @@
 const { catchAsyncErrors } = require("../middlewares/catchAsyncError");
-const Employe = require("../models/employeModel")
+const Employe = require("../models/employeModel");
+const Internship = require("../models/internshipModel");
+const Job = require("../models/jobModel");
 const ErrorHandler = require("../utils/ErrorHandler");
 const { sendtoken } = require("../utils/SendToken"); 
 const {sendmail} = require("../utils/nodeMailer");
@@ -12,7 +14,7 @@ exports.homepage = catchAsyncErrors (async (req, res, next) => {
 });
 
 exports.currentEmploye = catchAsyncErrors (async (req, res, next) => {
-    const employe = await Employe.findById(req.id).exec();
+    const employe = await Employe.findById(req.params.id).exec();
     res.json({employe});
 });
 
@@ -126,4 +128,55 @@ exports.employeavatar = catchAsyncErrors (async (req, res, next) => {
         message: "Profile updated!",
     })
     res.json({image})
-   });
+});
+
+
+//--------------------------- Internship -------------------------
+
+exports.createinternship = catchAsyncErrors (async (req, res, next) => {
+    const employe = await Employe.findById(req.id).exec();
+    const internship = await new Internship(req.body);
+    internship.employe = employe._id; //employe ke id se ye bataya hai ye employe ne iss internship ko banaya hai
+    employe.internships.push(internship._id); //employe ke model ke andar internships me push kar diya create internship ko
+    await internship.save(); //then internship save
+    await employe.save(); // and employe save
+    res.status(201).json({success: true, internship}) // internship ko json me bhej denge
+});
+
+exports.readinternship = catchAsyncErrors (async (req, res, next) => {
+    const { internships } = await Employe.findById(req.id)
+    .populate("internships")
+    .exec();
+    res.status(200).json({success: true, internships })
+});
+
+exports.readsingleinternship = catchAsyncErrors (async (req, res, next) => {
+    const internship = await Internship.findById(req.params.id).exec();
+    res.status(200).json({success: true, internship})
+});
+
+
+//--------------------------- Jobs -------------------------
+
+exports.createjob = catchAsyncErrors (async (req, res, next) => {
+    const employe = await Employe.findById(req.id).exec();
+    const job = await new Job(req.body);
+    job.employe = employe._id; //employe ke id se ye bataya hai ye employe ne iss job ko banaya hai
+    employe.jobs.push(job._id); //employe ke model ke andar jobs me push kar diya create job ko
+    await job.save(); //then job save
+    await employe.save(); // and employe save
+    res.status(201).json({success: true, job}) // job ko json me bhej denge
+});
+
+exports.readjob = catchAsyncErrors (async (req, res, next) => {
+    const { jobs } = await Employe.findById(req.id)
+    .populate("jobs")
+    .exec();
+    res.status(200).json({success: true, jobs })
+});
+
+
+exports.readsinglejob = catchAsyncErrors (async (req, res, next) => {
+    const job = await Job.findById(req.params.id).exec();
+    res.status(200).json({success: true, job})
+});
