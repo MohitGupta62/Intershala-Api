@@ -183,7 +183,6 @@ exports.deletecourses = catchAsyncErrors (async (req, res, next) => {
     res.json({message: "Courses Deleted!"});
 });
 
-
 //--------------------------- Projects -------------------------------------
 
 exports.addprojects = catchAsyncErrors (async (req, res, next) => {
@@ -217,4 +216,74 @@ exports.deleteprojects = catchAsyncErrors (async (req, res, next) => {
     student.resume.projects = filterprojects;
     await student.save();
     res.json({message: "Projects Deleted!"});
+});
+
+//--------------------------- Skills -------------------------------------
+
+exports.addskills = catchAsyncErrors (async (req, res, next) => {
+    const student = await Student.findById(req.id).exec();
+    student.resume.skills.push({...req.body, id: uuidv4()}); //student ke skills model me push kar diye
+    //uuidv4 me ek random id generate hogi
+    await student.save();
+    res.json({message: "Skills Added!"});
+});
+
+exports.editskills = catchAsyncErrors (async (req, res, next) => {
+    const student = await Student.findById(req.id).exec();
+    const skillsIndex = student.resume.skills.findIndex(
+        // check karnege kya i equal hai skills.id ke or skills ke id
+        i => i.id === req.params.skillsid
+    );
+    student.resume.skills[skillsIndex] = {
+        ...student.resume.skills[skillsIndex],
+        ...req.body
+    };
+    await student.save();
+    res.json({message: "Skills Updated!"});
+});
+
+exports.deleteskills = catchAsyncErrors (async (req, res, next) => {
+    const student = await Student.findById(req.id).exec();
+    const filterskills = student.resume.skills.filter(
+        // check karnege i equal nahi hai skills.id ke or skills ke id
+        i => i.id !== req.params.skillsid
+    );
+    student.resume.skills = filterskills;
+    await student.save();
+    res.json({message: "Skills Deleted!"});
+});
+
+//--------------------------- Accomplishments -------------------------------------
+
+exports.addacco = catchAsyncErrors (async (req, res, next) => {
+    const student = await Student.findById(req.id).exec();
+    student.resume.acco.push({...req.body, id: uuidv4()}); //student ke acco model me push kar diye
+    //uuidv4 me ek random id generate hogi
+    await student.save();
+    res.json({message: "Acco Added!"});
+});
+
+exports.editacco = catchAsyncErrors (async (req, res, next) => {
+    const student = await Student.findById(req.id).exec();
+    const accoIndex = student.resume.acco.findIndex(
+        // check karnege kya i equal hai acco.id ke or accomplishments ke id
+        i => i.id === req.params.accoid
+    );
+    student.resume.acco[accoIndex] = {
+        ...student.resume.acco[accoIndex],
+        ...req.body
+    };
+    await student.save();
+    res.json({message: "Acco Updated!"});
+});
+
+exports.deleteacco = catchAsyncErrors (async (req, res, next) => {
+    const student = await Student.findById(req.id).exec();
+    const filteracco = student.resume.acco.filter(
+        // check karnege i equal nahi hai acco.id ke or acco ke id
+        i => i.id !== req.params.accoid
+    );
+    student.resume.acco = filteracco;
+    await student.save();
+    res.json({message: "Acco Deleted!"});
 });

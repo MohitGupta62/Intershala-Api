@@ -19,6 +19,9 @@ const { resume,
         addprojects,
         editprojects,
         deleteprojects,
+        addskills,
+        editskills,
+        deleteskills,
 } = require("../controllers/resumeController");
 const { isAuthenticated } = require("../middlewares/authenticate");
 
@@ -71,24 +74,46 @@ router.post("/delete-respon/:responsid", isAuthenticated, deleteresponsibilities
 
 //----------------------------- Courses -------------------------------------
 
-//POST /add-courses
+//POST /add-course
 router.post("/add-course", isAuthenticated, addcourses)
 
-//POST /edit-courses/id
+//POST /edit-course/id
 router.post("/edit-course/:coursesid", isAuthenticated, editcourses)
 
-//POST /delete-courses/id
+//POST /delete-course/id
 router.post("/delete-course/:coursesid", isAuthenticated, deletecourses)
 
 //----------------------------- Projects -------------------------------------
 
-//POST /add-projects
+//POST /add-project
 router.post("/add-project", isAuthenticated, addprojects)
 
-//POST /edit-projects/id
+//POST /edit-project/id
 router.post("/edit-project/:projectsid", isAuthenticated, editprojects)
 
-//POST /delete-projects/id
+//POST /delete-project/id
 router.post("/delete-project/:projectsid", isAuthenticated, deleteprojects)
+
+//----------------------------- Skills -------------------------------------
+
+//POST /add-skills
+router.post("/add-skill", isAuthenticated, addskills)
+
+//POST /edit-skills/id
+router.post("/edit-skill/:skillsid", isAuthenticated, editskills)
+
+//POST /delete-skills/id
+router.post("/delete-skill/:skillsid", isAuthenticated, deleteskills)
+
+//----------------------------- Accomplishments -------------------------------------
+
+//POST /add-acco
+router.post("/add-acco", isAuthenticated, addacco)
+
+//POST /edit-accos/id
+router.post("/edit-acco/:accoid", isAuthenticated, editacco)
+
+//POST /delete-accos/id
+router.post("/delete-acco/:accoid", isAuthenticated, deleteacco)
 
 module.exports = router;
